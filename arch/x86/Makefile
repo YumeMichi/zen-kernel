@@ -185,10 +185,14 @@ else
         cflags-$(CONFIG_MSAPPHIRERAPIDS) += -march=sapphirerapids
         cflags-$(CONFIG_MROCKETLAKE) 	+= -march=rocketlake
         cflags-$(CONFIG_MALDERLAKE) 	+= -march=alderlake
+ifeq ($(CONFIG_OPTIMIZE_SPECIFICALLY),y)
+        include $(srctree)/arch/x86/Makefile.spec
+else
         cflags-$(CONFIG_GENERIC_CPU2) 	+= -march=x86-64-v2
         cflags-$(CONFIG_GENERIC_CPU3) 	+= -march=x86-64-v3
         cflags-$(CONFIG_GENERIC_CPU4) 	+= -march=x86-64-v4
         cflags-$(CONFIG_GENERIC_CPU)	+= -mtune=generic
+endif
         KBUILD_CFLAGS += $(cflags-y)
 
         KBUILD_CFLAGS += -mno-red-zone
